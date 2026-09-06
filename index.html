@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文字塔防 · 五行卡牌</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="lobbyScreen" class="lobby">
+    <div class="lobby-box">
+      <h1>文字塔防</h1>
+      <div class="lobby-tabs">
+        <button class="tab-btn active" data-tab="home">首頁</button>
+        <button class="tab-btn" data-tab="loadout">裝備文字</button>
+      </div>
+
+      <div class="tab-panel" id="tabHome">
+        <p>選擇你要帶上戰場的文字(最多 5 個),抽卡手牌只會從你裝備的文字中出現。</p>
+        <div class="loadout-preview" id="loadoutPreview"></div>
+        <button id="startGameBtn" class="primary-btn">開始遊戲</button>
+        <div id="lobbyToast" class="lobby-toast"></div>
+      </div>
+
+      <div class="tab-panel hidden" id="tabLoadout">
+        <p>點選卡牌裝備 / 卸下,最多可裝備 <b>5</b> 個字(<span id="loadoutCount">0</span>/5)</p>
+        <div class="loadout-grid" id="loadoutGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="app" class="hidden">
+    <header id="topbar">
+      <h1>文字塔防</h1>
+      <div class="stat"><span class="label">💰 金幣</span><span id="goldVal">180</span></div>
+      <div class="stat"><span class="label">❤️ 生命</span><span id="livesVal">20</span></div>
+      <div class="stat"><span class="label">🌊 波數</span><span id="waveVal">0 / 10</span></div>
+      <button id="startWaveBtn">開始下一波</button>
+      <button id="speedBtn">1x 速度</button>
+      <button id="helpBtn">相剋提示</button>
+    </header>
+
+    <main id="gamearea">
+      <canvas id="board" width="780" height="480"></canvas>
+      <div id="toast"></div>
+      <div id="ghostCard" class="card ghost hidden"></div>
+    </main>
+
+    <footer id="handbar">
+      <div class="hand-row">
+        <div class="hand-label">手牌 · 拖曳到場地上召喚 / 疊加卡牌可升級或融合 / 場上的塔可直接拖曳移動</div>
+        <button id="rerollAllBtn">🔄 換一批手牌（💰25）</button>
+      </div>
+      <div id="hand"></div>
+    </footer>
+  </div>
+
+  <div id="gameTooltip" class="game-tooltip hidden"></div>
+
+  <div id="helpModal" class="modal hidden">
+    <div class="modal-box">
+      <h2>五行相剋 &amp; 融合表</h2>
+      <p>木克土・土克水・水克火・火克金・金克木<br>塔的屬性克制敵人屬性時傷害提升,被克制時傷害降低。敵人身上的顏色符文代表其屬性,滑鼠移到敵人或塔上可查看詳細數值與抗性。每 5 波會出現一次首領,首領擁有減傷裝甲與異常狀態抗性。</p>
+      <div id="comboList"></div>
+      <button id="closeHelp">關閉</button>
+    </div>
+  </div>
+
+  <div id="endModal" class="modal hidden">
+    <div class="modal-box">
+      <h2 id="endTitle">遊戲結束</h2>
+      <p id="endDesc"></p>
+      <button id="restartBtn">重新開始</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
